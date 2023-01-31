@@ -1,4 +1,4 @@
-package com.fredrikbogg.android_chat_app.ui.chat
+package ru.scid.supportchat.presentation.ui.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import ru.scid.supportchat.databinding.ListItemMessageBinding
 import ru.scid.supportchat.databinding.ListItemMessageSentBinding
 import ru.scid.supportchat.domain.entities.comments.TicketCommentData
 
-class MessagesListAdapter : ListAdapter<TicketCommentData, RecyclerView.ViewHolder>(MessageDiffCallback()) {
+class MessagesListAdapter : ListAdapter<TicketCommentData, RecyclerView.ViewHolder>(
+    MessageDiffCallback()
+) {
 
     private val holderTypeMessageReceived = 1
     private val holderTypeMessageSent = 2

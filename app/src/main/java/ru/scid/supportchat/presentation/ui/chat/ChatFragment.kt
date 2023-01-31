@@ -2,19 +2,12 @@ package ru.scid.supportchat.presentation.ui.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
-import com.fredrikbogg.android_chat_app.ui.chat.MessagesListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import ru.scid.supportchat.R
 import ru.scid.supportchat.databinding.FragmentChatBinding
 import javax.inject.Inject
 

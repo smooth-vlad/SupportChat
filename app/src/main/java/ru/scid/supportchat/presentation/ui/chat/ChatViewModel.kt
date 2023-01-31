@@ -7,6 +7,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.scid.supportchat.domain.entities.comments.TicketCommentData
 import ru.scid.supportchat.domain.entities.tickets.CommentPostData
@@ -28,7 +29,10 @@ class ChatViewModel @AssistedInject constructor(
 
     private fun listTicketComments() {
         viewModelScope.launch {
-            ticketComments.postValue(ticketsRepository.listTicketComments(ticketId)?.tickets)
+            while (true) {
+                ticketComments.postValue(ticketsRepository.listTicketComments(ticketId)?.tickets)
+                delay(5000)
+            }
         }
     }
 
