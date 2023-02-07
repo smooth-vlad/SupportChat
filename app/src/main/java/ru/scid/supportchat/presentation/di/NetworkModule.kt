@@ -9,8 +9,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.scid.supportchat.presentation.HttpRequestInterceptor
 import ru.scid.supportchat.domain.repositories.UserDataRepository
+import ru.scid.supportchat.util.HttpRequestInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton

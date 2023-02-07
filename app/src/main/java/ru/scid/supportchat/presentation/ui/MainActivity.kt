@@ -1,21 +1,14 @@
 package ru.scid.supportchat.presentation.ui
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import ru.scid.supportchat.R
 import ru.scid.supportchat.databinding.ActivityMainBinding
-
-const val API_URL = "https://scid.zendesk.com"
-const val API_TOKEN = "pomMGlgywcp8H0u4Xc1rfsBcAOyHRL92egtj3UMQ"
-const val API_EMAIL = "v.a.gladkiy1@gmail.com"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

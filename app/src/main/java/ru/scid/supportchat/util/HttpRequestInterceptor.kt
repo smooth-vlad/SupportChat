@@ -1,4 +1,4 @@
-package ru.scid.supportchat.presentation
+package ru.scid.supportchat.util
 
 import okhttp3.Credentials
 import okhttp3.Interceptor
@@ -16,7 +16,17 @@ class HttpRequestInterceptor(private val userDataRepository: UserDataRepository)
         val original = chain.request()
         val requestBuilder = original.newBuilder().header(CONTENT_TYPE_PARAM, CONTENT_TYPE_VALUE)
 
-        requestBuilder.header(AUTHORIZATION_PARAM, Credentials.basic(userDataRepository.email + "/token", userDataRepository.token))
+        if (userDataRepository.useClientAuth) {
+            requestBuilder.header(
+                AUTHORIZATION_PARAM,
+                Credentials.basic(userDataRepository.email, userDataRepository.password)
+            )
+        } else {
+            requestBuilder.header(
+                AUTHORIZATION_PARAM,
+                Credentials.basic(userDataRepository.adminEmail + "/token", userDataRepository.adminToken)
+            )
+        }
 
         val request = requestBuilder.method(original.method, original.body).build()
         return chain.proceed(request)

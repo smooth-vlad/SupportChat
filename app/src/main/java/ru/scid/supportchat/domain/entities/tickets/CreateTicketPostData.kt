@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CreateTicketPostData(
 
-    @SerializedName("ticket")
+    @SerializedName("request")
     val ticket: TicketPostData
 
 )

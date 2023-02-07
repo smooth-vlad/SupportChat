@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.scid.supportchat.databinding.FragmentChatBinding
+import kotlinx.coroutines.flow.collectLatest
 import ru.scid.supportchat.databinding.FragmentChatsBinding
 
 @AndroidEntryPoint
@@ -37,6 +39,8 @@ class ChatsFragment : Fragment() {
 
         setUpObservers()
         setUpListeners()
+
+        viewModel.listTickets()
     }
 
     private fun setUpListeners() {
@@ -44,18 +48,33 @@ class ChatsFragment : Fragment() {
             val action = ChatsFragmentDirections.actionChatsFragmentToCreateChatFragment()
             findNavController().navigate(action)
         }
-
+        binding.srlIndicator.setOnRefreshListener {
+            viewModel.listTickets()
+        }
     }
 
     private fun setUpObservers() {
         viewModel.tickets.observe(viewLifecycleOwner) {
-            listAdapter = ChatsListAdapter {
-                val action = ChatsFragmentDirections.actionChatsFragmentToChatFragment(it.id)
-                findNavController().navigate(action)
+            binding.tvEmptyListMessage.isVisible = it.isEmpty()
+            binding.chatsRecyclerView.isVisible = it.isNotEmpty()
+            if (it.isNotEmpty()) {
+                listAdapter = ChatsListAdapter {
+                    val action = ChatsFragmentDirections.actionChatsFragmentToChatFragment(it.id)
+                    findNavController().navigate(action)
+                }
+                binding.chatsRecyclerView.adapter = listAdapter
+                listAdapter.submitList(it)
             }
-            binding.chatsRecyclerView.adapter = listAdapter
-            listAdapter.submitList(it)
         }
-
+        lifecycleScope.launchWhenStarted {
+            viewModel.onError.collectLatest {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.srlIndicator.isRefreshing = false
+            }
+        }
     }
 }

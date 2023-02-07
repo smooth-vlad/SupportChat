@@ -2,7 +2,13 @@ package ru.scid.supportchat.domain.repositories
 
 class UserDataRepository {
 
-    var token = "S5yFW0H7r7REM9d5zFYPisshmuSBuZUBp1PdEeTX"
-    var email = "kbga5lh@gmail.com"
+    var useClientAuth = false
+
+    var adminEmail = "v.a.gladkiy1@gmail.com"
+    var adminToken = "5NipgAV26S7PNEriEc0JVOYJGclhS0LM031raC0O"
+
+    var id = 0L
+    var password = ""
+    var email = ""
 
 }
